@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 from tqdm import tqdm
 from time import sleep
-from scripts import epynetUtils
+import epynetUtils
 
 # TODO: remove global variables
 actuators_update_dict = {}
