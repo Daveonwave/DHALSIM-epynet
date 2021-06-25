@@ -1,7 +1,7 @@
 import epynet
 import pandas as pd
 import datetime
-from tqdm import tqdm
+#from tqdm import tqdm
 from time import sleep
 import epynetUtils
 
@@ -100,7 +100,7 @@ class WaterDistributionNetwork(epynet.Network):
         curr_time = 0
         timestep = 1
 
-        progress_bar = tqdm(total=self.ep.ENgettimeparam(0))
+        #progress_bar = tqdm(total=self.ep.ENgettimeparam(0))
         # timestep becomes 0 the last hydraulic step
         while timestep > 0:
             timestep, state = self.simulate_step(curr_time=curr_time, actuators_status=actuators_update_dict)
@@ -113,9 +113,9 @@ class WaterDistributionNetwork(epynet.Network):
             # if timestep != 0 and self.interactive:
             #    self.update_actuators_status()
             sleep(0.01)
-            progress_bar.update(timestep)
+            #progress_bar.update(timestep)
 
-        progress_bar.close()
+        #progress_bar.close()
         self.ep.ENcloseH()
         self.solved = True
         self.create_df_reports()
