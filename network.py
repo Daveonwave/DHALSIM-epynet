@@ -137,17 +137,17 @@ class WaterDistributionNetwork(epynet.Network):
         :param curr_time: current simulation time
         :return: time until the next event, if 0 the simulation is going to end
         """
+        # update the status of actuators after the first step
+        # TODO: DHALSIM works with the status update here
+        if actuators_status and self.interactive and timestep != 0:
+            self.update_actuators_status(actuators_status)
+
         self.ep.ENrunH()
         timestep = self.ep.ENnextH()
 
         # append new values to reports
         self.times.append(curr_time)
         self.load_attributes(curr_time)
-
-        # update the status of actuators after the first step
-        # TODO: DHALSIM works with the status update here
-        if actuators_status and self.interactive and timestep != 0:
-                self.update_actuators_status(actuators_status)
 
         return timestep, self.get_network_state()
 
