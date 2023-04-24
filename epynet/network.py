@@ -1,4 +1,4 @@
-import core
+from epynet import core
 import pandas as pd
 import datetime
 #from tqdm import tqdm

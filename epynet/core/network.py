@@ -1,5 +1,4 @@
 """ EPYNET Classes """
-import atexit
 
 from . import epanet2
 from .objectcollection import ObjectCollection
@@ -7,7 +6,7 @@ from .node import Junction, Tank, Reservoir
 from .link import Pipe, Valve, Pump
 from .curve import Curve
 from .pattern import Pattern
-import os
+
 
 class Network(object):
     """ self.epANET Network Simulation Class """
@@ -52,7 +51,7 @@ class Network(object):
     def load_network(self):
         """ Load network data """
         # load nodes
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_NODECOUNT)+1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_NODECOUNT) + 1):
             # get node type
             node_type = self.ep.ENgetnodetype(index)
             uid = self.ep.ENgetnodeid(index)
@@ -72,7 +71,7 @@ class Network(object):
 
 
         # load links
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_LINKCOUNT)+1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_LINKCOUNT) + 1):
             link_type = self.ep.ENgetlinktype(index)
             uid = self.ep.ENgetlinkid(index)
             # pipes
@@ -96,12 +95,12 @@ class Network(object):
 
         # load curves 
 
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_CURVECOUNT)+1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_CURVECOUNT) + 1):
             uid = self.ep.ENgetcurveid(index)
             self.curves[uid] = Curve(uid, self)
 
         # load patterns
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_PATCOUNT)+1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_PATCOUNT) + 1):
             uid = self.ep.ENgetpatternid(index)
             self.patterns[uid] = Pattern(uid, self)
 
