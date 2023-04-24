@@ -1,6 +1,10 @@
 import network
+from pathlib import Path
 
-net = network.WaterDistributionNetwork("ctown_pd.inp")
+
+inp_path = str(Path('.').cwd().parent.absolute() / 'towns' / 'ctown_pd.inp')
+print('Example with file: {inp}'.format(inp=inp_path))
+net = network.WaterDistributionNetwork(inp_path)
 net.set_time_params(duration=3600, hydraulic_step=300)
 
 status = 0.0
