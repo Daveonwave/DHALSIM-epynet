@@ -15,4 +15,4 @@ exit(0)
 net.run(interactive=False, status_dict=actuators_update_dict)
 
 for pump in net.pumps.uid:
-	print(net.df_links_report['pumps', pump, 'status'])
+    print(net.df_links_report['pumps', pump, 'status'])

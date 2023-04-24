@@ -9,7 +9,7 @@ class Pattern(object):
         self.network = weakref.ref(network)
 
     def __str__(self):
-        return "<epynet."+self.__class__.__name__ + " with id '" + self.uid + "'>"
+        return "<core."+self.__class__.__name__ + " with id '" + self.uid + "'>"
 
     @property
     def index(self):

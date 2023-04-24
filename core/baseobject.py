@@ -51,7 +51,7 @@ class BaseObject(object):
         self.times = []
 
     def __str__(self):
-        return "<epynet."+self.__class__.__name__ + " with id '" + self.uid + "'>"
+        return "<core."+self.__class__.__name__ + " with id '" + self.uid + "'>"
 
     def __getattr__(self, name):
 
