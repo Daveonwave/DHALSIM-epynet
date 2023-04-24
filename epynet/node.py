@@ -1,8 +1,8 @@
 """ EPYNET Classes """
-from . import epanet2
-from .objectcollection import ObjectCollection
-from .baseobject import BaseObject, lazy_property
-from .pattern import Pattern
+from epynet import epanet2
+from epynet.objectcollection import ObjectCollection
+from epynet.baseobject import BaseObject, lazy_property
+from epynet.pattern import Pattern
 
 
 class Node(BaseObject):

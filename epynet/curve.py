@@ -1,4 +1,4 @@
-from . import epanet2
+from epynet import epanet2
 import weakref
 
 class Curve(object):

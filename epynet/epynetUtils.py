@@ -1,4 +1,5 @@
-from epynet import core as en
+from epynet.network import Network
+from epynet.epanet2 import EPANET2
 
 time_params = {
     '0': 'EN_DURATION',
@@ -22,10 +23,10 @@ def get_time_param_code(param: str):
     raise KeyError("The selected parameter doesn't exist")
 
 
-def get_time_parameter(wds: en.Network, code: int):
-    return time_params[str(code)], en.epanet2.EPANET2.ENgettimeparam(wds.ep, code)
+def get_time_parameter(wds: Network, code: int):
+    return time_params[str(code)], EPANET2.ENgettimeparam(wds.ep, code)
 
 
-def time_parameters_summary(wds: en.Network):
+def time_parameters_summary(wds: Network):
     for i in time_params.keys():
         print(get_time_parameter(wds, int(i)))
