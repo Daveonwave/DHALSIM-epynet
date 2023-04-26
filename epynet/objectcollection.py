@@ -1,14 +1,15 @@
+import collections
 import pandas as pd
 
 
 class ObjectCollection(dict):
 
     # magic methods to transform collection attributes to Pandas Series or, if we return classes, another list
-    def __getattr__(self,name):
+    def __getattr__(self, name):
         values = {}
 
         for key, item in self.items():
-            values[item.uid] = getattr(item,name)
+            values[item.uid] = getattr(item, name)
 
         if isinstance(values[item.uid], pd.Series):
             return pd.concat(values,axis=1)
@@ -19,16 +20,16 @@ class ObjectCollection(dict):
 
         if isinstance(value, pd.Series):
             for key, item in self.items():
-                setattr(item,name,value[item.uid])
+                setattr(item, name, value[item.uid])
             return
 
         for key, item in self.items():
-            setattr(item,name,value)
+            setattr(item, name, value)
 
     def __getitem__(self, key):
         # support for index slicing through pandas
         if isinstance(key, pd.Series):
-            ids = key[key==True].index
+            ids = key[key == True].index
             return_dict = ObjectCollection()
             for uid in ids:
                 obj = super(ObjectCollection, self).__getitem__(uid)

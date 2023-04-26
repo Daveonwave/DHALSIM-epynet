@@ -118,7 +118,6 @@ class WaterDistributionNetwork(network.Network):
         self.ep.ENopenH()
         self.ep.ENinitH(flag=11)
 
-
     def simulate_step(self, curr_time, actuators_status=None):
         """
         Simulation of one step from the given time

@@ -70,7 +70,7 @@ class Network(object):
 
 
         # load links
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_LINKCOUNT) + 1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_LINKCOUNT)+1):
             link_type = self.ep.ENgetlinktype(index)
             uid = self.ep.ENgetlinkid(index)
             # pipes
@@ -92,14 +92,14 @@ class Network(object):
             link.to_node.links[link.uid] = link
 
 
-        # load curves 
+        # load curves
 
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_CURVECOUNT) + 1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_CURVECOUNT)+1):
             uid = self.ep.ENgetcurveid(index)
             self.curves[uid] = Curve(uid, self)
 
         # load patterns
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_PATCOUNT) + 1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_PATCOUNT)+1):
             uid = self.ep.ENgetpatternid(index)
             self.patterns[uid] = Pattern(uid, self)
 
@@ -158,7 +158,6 @@ class Network(object):
         self.invalidate_links()
 
     def add_reservoir(self, uid, x, y, elevation=0):
-
         self.ep.ENaddnode(uid, epanet2.EN_RESERVOIR)
 
         index = self.ep.ENgetnodeindex(uid)

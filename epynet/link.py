@@ -54,7 +54,6 @@ class Link(BaseObject):
     def path(self):
         return [self.from_node.coordinates] + self.vertices + [self.to_node.coordinates]
 
-
 class Pipe(Link):
     """ EPANET Pipe Class """
     link_type = 'pipe'
