@@ -7,25 +7,26 @@ import platform
 import datetime
 import os
 import warnings
-
+from pathlib import Path
 
 class EPANET2(object):
 
     def __init__(self, charset='UTF8'):
         _plat= platform.system()
         if _plat=='Darwin':
-            dll_path = os.path.join(os.path.dirname(__file__), "lib/libepanet.dylib")
+            dll_path = os.path.join(os.path.dirname(__file__), "../lib/libepanet.dylib")
             self._lib = ctypes.cdll.LoadLibrary(dll_path)
             ctypes.c_float = ctypes.c_double
         elif _plat=='Linux':
-            dll_path = os.path.join(os.path.dirname(__file__), "lib/libepanet.so")
+            dll_path = str(Path(__file__).parent.absolute() / 'lib' / 'libepanet.so')
+            print('cwd dll_path: ' + dll_path)
             self._lib = ctypes.CDLL(dll_path)
             ctypes.c_float = ctypes.c_double
         elif _plat=='Windows':
           ctypes.c_float = ctypes.c_double
           try:
             # if epanet2.dll compiled with __cdecl (as in OpenWaterAnalytics)
-            dll_path = os.path.join(os.path.dirname(__file__), "lib/epanet2.dll")
+            dll_path = os.path.join(os.path.dirname(__file__), "../lib/epanet2.dll")
             self._lib = ctypes.CDLL(dll_path)
           except ValueError:
              # if epanet2.dll compiled with __stdcall (as in EPA original DLL)

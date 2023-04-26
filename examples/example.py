@@ -2,7 +2,7 @@ from epynet.water_network import WaterDistributionNetwork
 from pathlib import Path
 
 
-inp_path = str(Path('../epynet').cwd().parent.absolute() / 'towns' / 'ctown_pd.inp')
+inp_path = str(Path(__file__).parent.absolute() / 'towns' / 'ctown_pd.inp')
 print('Example with file: {inp}'.format(inp=inp_path))
 net = WaterDistributionNetwork(inp_path)
 net.set_time_params(duration=3600, hydraulic_step=300)
