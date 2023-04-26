@@ -8,7 +8,7 @@ setup(name='epynet',
       author_email='abel.heinsbroek@vitens.nl',
       license='Apache Licence 2.0',
       packages=['epynet'],
-      package_data={'epynet': ['core/lib/*']},
+      package_data={'epynet': ['epynet/lib/*']},
       install_requires=[
           'pandas'
       ],
