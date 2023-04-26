@@ -13,16 +13,16 @@ class EPANET2(object):
 
     def __init__(self, charset='UTF8'):
         _plat= platform.system()
-        if _plat=='Darwin':
+        if _plat == 'Darwin':
             dll_path = os.path.join(os.path.dirname(__file__), "../lib/libepanet.dylib")
             self._lib = ctypes.cdll.LoadLibrary(dll_path)
             ctypes.c_float = ctypes.c_double
-        elif _plat=='Linux':
+        elif _plat == 'Linux':
             dll_path = str(Path(__file__).parent.absolute() / 'lib' / 'libepanet.so')
             print('cwd dll_path: ' + dll_path)
             self._lib = ctypes.CDLL(dll_path)
             ctypes.c_float = ctypes.c_double
-        elif _plat=='Windows':
+        elif _plat == 'Windows':
           ctypes.c_float = ctypes.c_double
           try:
             # if epanet2.dll compiled with __cdecl (as in OpenWaterAnalytics)
@@ -39,7 +39,6 @@ class EPANET2(object):
         else:
           raise Exception('Platform '+ _plat +' unsupported (not yet)')
 
-
         self.charset = charset
         self._current_simulation_time=  ctypes.c_long()
 
@@ -47,10 +46,10 @@ class EPANET2(object):
         self._lib.EN_createproject.argtypes = [ctypes.c_void_p]
         self._lib.EN_createproject(ctypes.byref(self.ph))
 
-        self._max_label_len= 32
-        self._err_max_char= 80
+        self._max_label_len = 32
+        self._err_max_char = 80
 
-    def ENepanet(self,nomeinp, nomerpt='', nomebin='', vfunc=None):
+    def ENepanet(self, nomeinp, nomerpt='', nomebin='', vfunc=None):
         """Runs a complete EPANET simulation.
 
         Arguments:

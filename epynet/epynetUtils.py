@@ -24,7 +24,7 @@ def get_time_param_code(param: str):
 
 
 def get_time_parameter(wds: Network, code: int):
-    return time_params[str(code)], EPANET2.ENgettimeparam(wds.ep, code)
+    return time_params[str(code)], epanet2.EPANET2.ENgettimeparam(wds.ep, code)
 
 
 def time_parameters_summary(wds: Network):

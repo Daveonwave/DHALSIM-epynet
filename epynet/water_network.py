@@ -82,7 +82,6 @@ class WaterDistributionNetwork(network.Network):
         Run method wrapper to set the interactivity option (and others in the future related to RL)
         :param interactive: to update the actuators with own values
         :param status_dict: dictionary with predefined updates (just to test, it will be removed)
-        TODO: remove status_dict
         """
         global actuators_update_dict
         if status_dict and interactive:
@@ -100,22 +99,11 @@ class WaterDistributionNetwork(network.Network):
         curr_time = 0
         timestep = 1
 
-        #progress_bar = tqdm(total=self.ep.ENgettimeparam(0))
-        # timestep becomes 0 the last hydraulic step
         while timestep > 0:
             timestep, state = self.simulate_step(curr_time=curr_time, actuators_status=actuators_update_dict)
             curr_time += timestep
-
-            # in DHALSIM here there should be:
-            # update_state(state)
-
-            # TODO: remember to comment in DHALSIM
-            # if timestep != 0 and self.interactive:
-            #    self.update_actuators_status()
             sleep(0.01)
-            #progress_bar.update(timestep)
 
-        #progress_bar.close()
         self.ep.ENcloseH()
         self.solved = True
         self.create_df_reports()
@@ -128,7 +116,8 @@ class WaterDistributionNetwork(network.Network):
         self.reset()
         self.times = []
         self.ep.ENopenH()
-        self.ep.ENinitH(flag=0)
+        self.ep.ENinitH(flag=11)
+
 
     def simulate_step(self, curr_time, actuators_status=None):
         """
@@ -137,6 +126,9 @@ class WaterDistributionNetwork(network.Network):
         :param curr_time: current simulation time
         :return: time until the next event, if 0 the simulation is going to end
         """
+        if actuators_status and self.interactive:
+                self.update_actuators_status(actuators_status)
+
         self.ep.ENrunH()
         timestep = self.ep.ENnextH()
 
@@ -144,24 +136,16 @@ class WaterDistributionNetwork(network.Network):
         self.times.append(curr_time)
         self.load_attributes(curr_time)
 
-        # update the status of actuators after the first step
-        # TODO: DHALSIM works with the status update here
-        if actuators_status and self.interactive and timestep != 0:
-                self.update_actuators_status(actuators_status)
-
         return timestep, self.get_network_state()
 
     def update_actuators_status(self, new_status):
         """
         Set actuators (pumps and valves) status to a new current state
         :param new_status: will be used in future with RL
-        TODO: update with new_status and remove step_count
         """
         # global step_count
         for uid in new_status.keys():
-            # self.links[uid].status = new_status[uid][step_count % 2]
             self.links[uid].status = new_status[uid]
-        # step_count += 1
 
     def get_network_state(self):
         """
@@ -247,9 +231,3 @@ class WaterDistributionNetwork(network.Network):
                 df_valves['valves', i, j] = self.valves.results[i][j]
 
             self.df_links_report = pd.concat([df_pumps, df_valves], axis=1)
-
-
-
-
-
-

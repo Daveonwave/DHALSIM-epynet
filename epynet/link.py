@@ -54,6 +54,7 @@ class Link(BaseObject):
     def path(self):
         return [self.from_node.coordinates] + self.vertices + [self.to_node.coordinates]
 
+
 class Pipe(Link):
     """ EPANET Pipe Class """
     link_type = 'pipe'
@@ -73,7 +74,7 @@ class Pump(Link):
     """ EPANET Pump Class """
     link_type = 'pump'
 
-    static_properties = {'length': epanet2.EN_LENGTH, 'initstatus': epanet2.EN_INITSTATUS, 
+    static_properties = {'length': epanet2.EN_LENGTH, 'initstatus': epanet2.EN_INITSTATUS,
                          'speed': epanet2.EN_INITSETTING}
     properties = {'flow': epanet2.EN_FLOW, 'energy': epanet2.EN_ENERGY, 'status': epanet2.EN_STATUS,
                   'velocity': epanet2.EN_VELOCITY}

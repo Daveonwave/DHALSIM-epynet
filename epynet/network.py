@@ -50,7 +50,7 @@ class Network(object):
     def load_network(self):
         """ Load network data """
         # load nodes
-        for index in range(1, self.ep.ENgetcount(epanet2.EN_NODECOUNT) + 1):
+        for index in range(1, self.ep.ENgetcount(epanet2.EN_NODECOUNT)+1):
             # get node type
             node_type = self.ep.ENgetnodetype(index)
             uid = self.ep.ENgetnodeid(index)
@@ -156,7 +156,6 @@ class Network(object):
 
         self.invalidate_nodes()
         self.invalidate_links()
-
 
     def add_reservoir(self, uid, x, y, elevation=0):
 
@@ -334,7 +333,7 @@ class Network(object):
         self.reset()
         self.ep.ENsettimeparam(4, simtime)
         self.ep.ENopenH()
-        self.ep.ENinitH(0)
+        self.ep.ENinitH(11)
         self.ep.ENrunH()
         self.ep.ENcloseH()
         self.solved = True
@@ -345,7 +344,7 @@ class Network(object):
         self.time = []
         # open network
         self.ep.ENopenH()
-        self.ep.ENinitH(0)
+        self.ep.ENinitH(11)
 
         simtime = 0
         timestep = 1
@@ -373,7 +372,7 @@ class Network(object):
                 if 'basedemand' not in node.results.keys():
                     node.results['basedemand'] = []
                 # if pattern not set it takes the basedemand as it is
-                if node.basedemand > 0 and node.pattern.uid is not '1':
+                if node.basedemand > 0 and node.pattern.uid != '1':
                     pattern_step = self.ep.ENgettimeparam(3)
                     node.results['basedemand'].append(
                         node.basedemand * node.pattern.values[(simtime // pattern_step) % len(node.pattern.values)])
@@ -422,8 +421,6 @@ class Network(object):
                     if components[0] not in self.vertices:
                         self.vertices[components[0]] = []
                     self.vertices[components[0]].append((float(components[1]), float(components[2])))
-
-
 
     def close(self):
         print('closing')
