@@ -126,7 +126,6 @@ class WaterDistributionNetwork(network.Network):
         :return: time until the next event, if 0 the simulation is going to end
         """
         if actuators_status and self.interactive:
-            print('actuator_status: ' + str(actuators_status))
             self.update_actuators_status(actuators_status)
 
         self.ep.ENrunH()
